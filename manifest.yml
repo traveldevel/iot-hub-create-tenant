@@ -1,0 +1,12 @@
+applications:
+ - name: iot-hub-create-tenant-shared-new
+   memory: 64M
+   disk_quota: 128M
+   no-route: true
+   timeout: 10
+   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+   services:
+    - mongo_shared
+   env:
+    landscapeName: shared
+    tenantName: new

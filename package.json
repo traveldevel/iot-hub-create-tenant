@@ -1,0 +1,37 @@
+{
+  "name": "iot-hub-create-tenant",
+  "version": "0.1.0",
+  "description": "tenant create script",
+  "main": "index.js",
+  "engines": {
+    "node": "8.2.1"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/traveldevel/iot-hub-create-tenant.git"
+  },
+  "keywords": [
+    "iot",
+    "hub",
+    "tenant",
+    "create",
+    "mongo",
+    "kafka"
+  ],
+  "author": "Travel Devel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/traveldevel/iot-hub-create-tenant/issues"
+  },
+  "homepage": "https://github.com/traveldevel/iot-hub-create-tenant#readme",
+  "dependencies": {
+    "cfenv": "^1.0.4",
+    "chai": "^4.1.2",
+    "mocha": "^3.5.2",
+    "mongodb": "^2.2.31"
+  }
+}
