@@ -1,6 +1,6 @@
 applications:
  - name: iot-hub-create-tenant-shared-new
-   memory: 32M
+   memory: 64M
    disk_quota: 128M
    no-hostname: true
    no-route: true
