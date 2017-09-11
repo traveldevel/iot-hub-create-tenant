@@ -122,5 +122,14 @@ mongoClient.connect(mongoUrl, mongoOptions, function(err, mongoDb4) {
     });
 });
 
+// command
+mongoClient.connect(mongoUrl, mongoOptions, function(err, mongoDbCheck) {
+    
+    var cols = mongoDbCheck.collections();
+    console.log("Collections : ", cols);
+
+    mongoDbCheck.close();
+});
+
 // stop smoothly after timeout
 process.on('exit', function() { process.exit(129); });
