@@ -123,4 +123,4 @@ mongoClient.connect(mongoUrl, mongoOptions, function(err, mongoDb4) {
 });
 
 // stop smoothly after timeout
-process.on('exit', function() { process.exit(0); });
+process.on('exit', function() { process.exit(129); });
