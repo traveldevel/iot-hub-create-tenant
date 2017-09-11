@@ -13,7 +13,9 @@
     
     `cf create-service mongodb v3.0-dev mongo_<LANDSCAPE_NAME>`
 
-## 2. Edit `manifest.yml` and change `landscapeName`, `tenantName` and `services` (name of service instance created)
+## 2. Edit `manifest.yml`
+
+    Change `landscapeName`, `tenantName` and `services` (name of service instance created)
 
 ## 3. Run to create the tenant collections and initialize them
 
