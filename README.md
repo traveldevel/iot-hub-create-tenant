@@ -1,10 +1,12 @@
 # iot-hub-create-tenant
 
-0. Clone this repository width a Git GUI or `git clone`
+0. Get files and login to CF environment
 
-00. Set CF environment api url with `cf api <URL>`
+    Clone this repository width a Git GUI or `git clone`
 
-000. Login to CF environment with `cf login`
+    Set CF environment api url with `cf api <URL>`
+
+    Login to CF environment with `cf login`
 
 
 1. Create if not exists the landscape Mongo db (as service) and bind to app
