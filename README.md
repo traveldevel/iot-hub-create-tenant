@@ -20,3 +20,7 @@
 ## 3. Run to create the tenant collections and initialize them
 
     `npm start` or `node index.js` in current directory
+    
+## 4. Connect to Mongo and check the tenant collections
+
+    https://www.cloudfoundry.org/now-you-can-tunnel-into-any-cloud-foundry-data-service/
