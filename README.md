@@ -24,3 +24,7 @@
 ## 4. Connect to Mongo and check the tenant collections
 
     https://www.cloudfoundry.org/now-you-can-tunnel-into-any-cloud-foundry-data-service/
+    
+    or 
+    
+    https://github.com/18F/cf-service-connect
