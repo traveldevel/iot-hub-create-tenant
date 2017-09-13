@@ -76,6 +76,8 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
         
                     console.log("Collection 'tenants' created !");
 
+                    var tenantsCol = mongoDb.collection("tenants");
+
                     var tenant = {
                         "tenant_name" : tenantName
                     };
