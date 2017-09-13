@@ -95,7 +95,7 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
         {
             var tenantsCol = mongoDb.collection("tenants");
             
-            tenantsCol.find({ name : tenantName } ).toArray(function(err, docs) {
+            tenantsCol.find({ tenant_name : tenantName } ).toArray(function(err, docs) {
                 console.log(docs);
 
                 if(docs.length === 0){
@@ -251,8 +251,8 @@ process.on('exit', function() {
         
         mongoDbCheck.collections().then(function(res){
 
-            var names = res.map(col => col.name);
-            console.log("Collections : ", names);
+            var names = res.map(col => col.s.name);
+            console.log("Collections at end : ", names);
             mongoDbCheck.close();
 
             process.exit(0);
