@@ -31,4 +31,6 @@
     
     4. Edit the `manifest.yml` file and change service related info
     
-    5. Run `cf login`, `cf push` open the link, you should see the UI
+    5. Run `npm install` before the push
+    
+    6. Run `cf login`, `cf push` open the link, you should see the UI
