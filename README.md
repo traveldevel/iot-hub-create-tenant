@@ -23,4 +23,10 @@
     
 ## 4. Connect to Mongo and check the tenant collections
 
-    https://github.com/komushi/cf-mongo-express
+    1. Deploy mongo-express to admin MongoDB in Cloud Foundry 
+    
+    2. Clone the repo : `https://github.com/traveldevel/mongo-express.git`
+    
+    3. Change the `.env` file with your Mongo service manual connection and other parameters if not working to read from VCAP_SERVICES
+    
+    4. `cf push` open the link, you should see the UI
