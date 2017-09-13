@@ -28,108 +28,126 @@ var userCollectionName = tenantName + "_user";
 // mongo connect and create missing collections
 var mongoServiceName = "mongo_" + landscapeName;
 var mongoService = services[mongoServiceName];
-var mongoCredentials = services[mongoServiceName].credentials;
-var mongoUrl = mongoCredentials.uri;
-var mongoClient = require('mongodb').MongoClient;
 
-var mongoOptions = undefined;
+var mongoCredentials = {};
+var mongoUrl = '';
 
-if(mongoCredentials.ca_certificate_base64 !== undefined) {
-    var mongoCA = [new Buffer(mongoCredentials.ca_certificate_base64, 'base64')];
-    
-    mongoOptions = {
-        mongos: {
-            ssl: true,
-            sslValidate: true,
-            sslCA: mongoCA,
-            poolSize: 10,
-            reconnectTries: 5
-        }
-    }
+if(mongoService !== undefined){
+    mongoCredentials = services[mongoServiceName].credentials;
+    mongoUrl = mongoCredentials.uri;
 }
 
-console.log("'" + mongoServiceName + "' found in VCAP_SERVICES ! ")
-//console.log(mongoService);
+var mongoClient = require('mongodb').MongoClient;
 
-// raw data
-mongoClient.connect(mongoUrl, mongoOptions, function(err, mongoDb1) {
+console.log("'" + mongoServiceName + "' found in VCAP_SERVICES ! ");
+console.log("Url for mongodb : '" + mongoUrl + "'");
+
+if(mongoUrl.length === 0){
+    console.log('No mongo service Binded. Exiting...');
+    return;
+}
+
+mongoClient.connect(mongoUrl, function(err, mongoDb) {
+
+    if(err){
+        console.log("Connect error : ", err);
+        process.exit(1);
+        return;
+    }
+
+    mongoDb.collections().then(function(cols){
+
+        var cols = cols.map(col => col.s.name);
+        console.log("Collections at start :", cols);
+
+        // raw data collection 
+        if(cols.indexOf(rawDataCollectionName) < 0){
     
-    mongoDb1.createCollection(rawDataCollectionName, function(err, res) {
-        
-        if (err) {
-            console.log(err);
-        }
-
-        console.log("Collection '" + rawDataCollectionName + "' created !");
-        mongoDb1.close();
-    });
-});
-
-// events
-mongoClient.connect(mongoUrl, mongoOptions, function(err, mongoDb2) {
-
-    mongoDb2.createCollection(eventCollectionName, function(err, res) {
-        
-        if (err) {
-            console.log(err);
-        }
-
-        console.log("Collection '" + eventCollectionName + "' created !");
-        mongoDb2.close();
-    });
-});
-
-// command
-mongoClient.connect(mongoUrl, mongoOptions, function(err, mongoDb3) {
-
-    mongoDb3.createCollection(commandCollectionName, function(err, res) {
-        
-        if (err) {
-            console.log(err);
-        }
-
-        console.log("Collection '" + commandCollectionName + "' created !");
-        mongoDb3.close();
-    });
-});
-
-// users
-mongoClient.connect(mongoUrl, mongoOptions, function(err, mongoDb4) {
-
-    mongoDb4.createCollection(userCollectionName, function(err, res) {
-        
-        if (err) {
-            console.log(err);
-        }
-
-        console.log("Collection '" + userCollectionName + "' created !");
-
-        var usersCol = mongoDb4.collection(userCollectionName);
-
-        var adminUser = {
-            "name" : "admin",
-            "password": "admin",
-            "roles":[
-                "ADMIN",
-                "DEVELOPER",
-                "READONLY"
-            ]
-        };
-
-        usersCol.insertOne(adminUser, function(){
-            mongoDb4.close();
-        });
-    });
-});
-
-// command
-mongoClient.connect(mongoUrl, mongoOptions, function(err, mongoDbCheck) {
+            mongoDb.createCollection(rawDataCollectionName, function(err, res) {
+                
+                if (err) {
+                    console.log(err);
+                }
     
-    var cols = mongoDbCheck.collections();
-    console.log("Collections : ", cols);
+                console.log("Collection '" + rawDataCollectionName + "' created !");
+                mongoDb.close();
+            });
+        }
+    
+        // events collection
+        if(cols.indexOf(eventCollectionName) < 0){
+    
+            mongoDb.createCollection(eventCollectionName, function(err, res) {
+                    
+                if (err) {
+                    console.log(err);
+                }
+    
+                console.log("Collection '" + eventCollectionName + "' created !");
+                mongoDb.close();
+            });
+        }
+    
+        // command collection
+        if(cols.indexOf(commandCollectionName) < 0){
+    
+            mongoDb.createCollection(commandCollectionName, function(err, res) {
+                
+                if (err) {
+                    console.log(err);
+                }
+    
+                console.log("Collection '" + commandCollectionName + "' created !");
+                mongoDb.close();
+            });
+        }
+    
+        // user collection
+        if(cols.indexOf(userCollectionName) < 0){
+    
+            mongoDb.createCollection(userCollectionName, function(err, res) {
+                
+                if (err) {
+                    console.log(err);
+                }
+    
+                console.log("Collection '" + userCollectionName + "' created !");
+    
+                var usersCol = mongoDb.collection(userCollectionName);
+    
+                var adminUser = {
+                    "name" : "admin",
+                    "password": "admin",
+                    "roles":[
+                        "ADMIN",
+                        "DEVELOPER",
+                        "READONLY"
+                    ]
+                };
+    
+                usersCol.insertOne(adminUser, function(){
+                    mongoDb.close();
+                });
+            });
+        }
 
-    mongoDbCheck.close();
+    });
+
 });
 
 // stop smoothly after timeout
-process.on('exit', function() { process.exit(129); });
+process.on('exit', function() {
+
+    // check collections created
+    mongoClient.connect(mongoUrl, function(err, mongoDbCheck) {
+        
+        mongoDbCheck.collections().then(function(res){
+
+            var names = res.map(col => col.name);
+            console.log("Collections : ", names);
+            mongoDbCheck.close();
+
+            process.exit(0);
+        });
+    });
+});
