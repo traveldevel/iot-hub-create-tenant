@@ -27,6 +27,8 @@
     
     2. Clone the repo : `https://github.com/traveldevel/mongo-express.git`
     
-    3. Change the `.env` file with your Mongo service manual connection and other parameters if not working to read from VCAP_SERVICES
+    3. Edit the `.env` file with your Mongo service manual connection and other parameters if not working to read from VCAP_SERVICES
     
-    4. `cf push` open the link, you should see the UI
+    4. Edit the `manifest.yml` file and change service related info
+    
+    5. Run `cf login`, `cf push` open the link, you should see the UI
