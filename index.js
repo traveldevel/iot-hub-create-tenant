@@ -68,23 +68,45 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
         // tenants collection 
         if(cols.indexOf("tenants") < 0){
             
-                mongoDb.createCollection("tenants", function(err, res) {
-                    
-                    if (err) {
-                        console.log(err);
+            mongoDb.createCollection("tenants", function(err, res) {
+                
+                if (err) {
+                    console.log(err);
+                }
+    
+                console.log("Collection 'tenants' created !");
+
+                var tenantsCol = mongoDb.collection("tenants");
+
+                tenantsCol.find({ name : tenantName } ).toArray(function(err, docs) {
+                    console.log(docs);
+
+                    if(docs.length === 0){
+                        var tenant = {
+                            "tenant_name" : tenantName
+                        };
+            
+                        tenantsCol.insertOne(tenant, function(){});
                     }
-        
-                    console.log("Collection 'tenants' created !");
+                });
+            });
+        }
+        else
+        {
+            var tenantsCol = mongoDb.collection("tenants");
+            
+            tenantsCol.find({ name : tenantName } ).toArray(function(err, docs) {
+                console.log(docs);
 
-                    var tenantsCol = mongoDb.collection("tenants");
-
+                if(docs.length === 0){
                     var tenant = {
                         "tenant_name" : tenantName
                     };
         
                     tenantsCol.insertOne(tenant, function(){});
-                });
-            }
+                }
+            });           
+        }
 
         // raw data collection 
         if(cols.indexOf(rawDataCollectionName) < 0){
