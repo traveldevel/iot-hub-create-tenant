@@ -8,7 +8,7 @@ applications:
    timeout: 10
    buildpack: https://github.com/cloudfoundry/nodejs-buildpack
    services:
-    - mongo_shared
+    - iot_hub_mongo_shared
    env:
     landscapeName: shared
     tenantName: new
