@@ -79,7 +79,7 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 var tenantsCol = mongoDb.collection("tenants");
 
                 tenantsCol.find({ name : tenantName } ).toArray(function(err, docs) {
-                    console.log(docs);
+                    console.log("Tenant exists ? ", docs);
 
                     if(docs.length === 0){
                         var tenant = {
