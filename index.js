@@ -1,37 +1,38 @@
 "use strict";
 
 // required modules
-var cfenv = require("cfenv");
+const cfenv = require("cfenv");
+const uuidv4 = require('uuid/v4');
 
 // configs from env vars
-var appEnv = cfenv.getAppEnv();
+const appEnv = cfenv.getAppEnv();
 
 if(!appEnv.isLocal){
     console.log("appEnv.isLocal=", appEnv.isLocal);
 }
 
-var landscapeName = process.env.landscapeName;
-var tenantName = process.env.tenantName;
+const landscapeName = process.env.landscapeName;
+const tenantName = process.env.tenantName;
 
 console.log("LANDSCAPE_NAME : ", landscapeName);
 console.log("TENANT_NAME : ", tenantName);
 
-var services = appEnv.getServices();
+const services = appEnv.getServices();
 //console.log(services);
 
 // tenant collection names
-var rawDataCollectionName = tenantName + "_raw_data";
-var eventCollectionName = tenantName + "_event";
-var commandCollectionName = tenantName + "_command";
-var projectCollectionName = tenantName + "_project";
-var deviceGroupCollectionName = tenantName + "_device_group";
-var deviceCollectionName = tenantName + "_device";
-var deviceSchemaCollectionName = tenantName + "_device_schema";
-var locationCollectionName = tenantName + "_location";
-var userCollectionName = tenantName + "_user";
+const rawDataCollectionName = tenantName + "_raw_data";
+const eventCollectionName = tenantName + "_event";
+const commandCollectionName = tenantName + "_command";
+const projectCollectionName = tenantName + "_project";
+const deviceGroupCollectionName = tenantName + "_device_group";
+const deviceCollectionName = tenantName + "_device";
+const deviceSchemaCollectionName = tenantName + "_device_schema";
+const locationCollectionName = tenantName + "_location";
+const userCollectionName = tenantName + "_user";
 
 // mongo connect and create missing collections
-var mongoServiceName = "iot_hub_mongo_" + landscapeName;
+const mongoServiceName = "iot_hub_mongo_" + landscapeName;
 var mongoService = services[mongoServiceName];
 
 var mongoCredentials = {};
