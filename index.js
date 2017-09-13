@@ -31,7 +31,7 @@ var locationCollectionName = tenantName + "_location";
 var userCollectionName = tenantName + "_user";
 
 // mongo connect and create missing collections
-var mongoServiceName = "mongo_" + landscapeName;
+var mongoServiceName = "iot_hub_mongo_" + landscapeName;
 var mongoService = services[mongoServiceName];
 
 var mongoCredentials = {};
