@@ -83,7 +83,8 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
 
                     if(docs.length === 0){
                         var tenant = {
-                            "tenant_name" : tenantName
+                            "tenant_name" : tenantName,
+                            "tenant_secret" : uuidv4()
                         };
             
                         tenantsCol.insertOne(tenant, function(){});
@@ -100,7 +101,8 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
 
                 if(docs.length === 0){
                     var tenant = {
-                        "tenant_name" : tenantName
+                        "tenant_name" : tenantName,
+                        "tenant_secret" : uuidv4()
                     };
         
                     tenantsCol.insertOne(tenant, function(){});
