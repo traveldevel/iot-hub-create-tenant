@@ -65,6 +65,25 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
         var cols = cols.map(col => col.s.name);
         console.log("Collections at start :", cols);
 
+        // tenants collection 
+        if(cols.indexOf("tenants") < 0){
+            
+                mongoDb.createCollection("tenants", function(err, res) {
+                    
+                    if (err) {
+                        console.log(err);
+                    }
+        
+                    console.log("Collection 'tenants' created !");
+
+                    var tenant = {
+                        "tenant_name" : tenantName
+                    };
+        
+                    tenantsCol.insertOne(tenant, function(){});
+                });
+            }
+
         // raw data collection 
         if(cols.indexOf(rawDataCollectionName) < 0){
     
@@ -75,7 +94,6 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
     
                 console.log("Collection '" + rawDataCollectionName + "' created !");
-                mongoDb.close();
             });
         }
     
@@ -89,7 +107,6 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
     
                 console.log("Collection '" + eventCollectionName + "' created !");
-                mongoDb.close();
             });
         }
     
@@ -103,7 +120,6 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
     
                 console.log("Collection '" + commandCollectionName + "' created !");
-                mongoDb.close();
             });
         }
 
@@ -117,7 +133,6 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
     
                 console.log("Collection '" + locationCollectionName + "' created !");
-                mongoDb.close();
             });
         }
     
@@ -131,7 +146,6 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
     
                 console.log("Collection '" + deviceCollectionName + "' created !");
-                mongoDb.close();
             });
         }
 
@@ -145,7 +159,6 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
     
                 console.log("Collection '" + deviceGroupCollectionName + "' created !");
-                mongoDb.close();
             });
         }
 
@@ -159,7 +172,6 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
     
                 console.log("Collection '" + deviceSchemaCollectionName + "' created !");
-                mongoDb.close();
             });
         }
 
@@ -173,7 +185,6 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
     
                 console.log("Collection '" + projectCollectionName + "' created !");
-                mongoDb.close();
             });
         }
 
@@ -200,9 +211,7 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                     ]
                 };
     
-                usersCol.insertOne(adminUser, function(){
-                    mongoDb.close();
-                });
+                usersCol.insertOne(adminUser, function(){});
             });
         }
 
