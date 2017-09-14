@@ -53,6 +53,8 @@ if(mongoUrl.length === 0){
     return;
 }
 
+var tenantSecret = uuidv4();
+
 mongoClient.connect(mongoUrl, function(err, mongoDb) {
 
     if(err){
@@ -85,7 +87,7 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                     if(docs.length === 0){
                         var tenant = {
                             "tenant_name" : tenantName,
-                            "tenant_secret" : uuidv4()
+                            "tenant_secret" : tenantSecret
                         };
             
                         tenantsCol.insertOne(tenant, function(){});
@@ -230,7 +232,7 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
     
                 var adminUser = {
                     "name" : "admin",
-                    "password": "admin",
+                    "password": tenantSecret,
                     "roles":[
                         "ADMIN",
                         "DEVELOPER",
