@@ -131,23 +131,23 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
 
                 // raw data indexes
-                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                res.ensureIndex("project_id", function(val){
                     console.log(val);
                 });
                 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("group_id", function(val){
+                res.ensureIndex("group_id", function(val){
                     console.log(val);
                 });
 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("device_id", function(val){
+                res.ensureIndex("device_id", function(val){
                     console.log(val);
                 });               
 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("recorded_time", function(val){
+                res.ensureIndex("recorded_time", function(val){
                     console.log(val);
                 });      
 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("created_at", function(val){
+                res.ensureIndex("created_at", function(val){
                     console.log(val);
                 });               
 
@@ -165,19 +165,19 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
     
                 // event indexes
-                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                res.ensureIndex("project_id", function(val){
                     console.log(val);
                 });
                 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("group_id", function(val){
+                res.ensureIndex("group_id", function(val){
                     console.log(val);
                 });
 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("device_id", function(val){
+                res.ensureIndex("device_id", function(val){
                     console.log(val);
                 });  
 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("user_id", function(val){
+                res.ensureIndex("user_id", function(val){
                     console.log(val);
                 });                  
 
@@ -195,15 +195,15 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
 
                 // event rule indexes
-                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                res.ensureIndex("project_id", function(val){
                     console.log(val);
                 }); 
                 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("group_id", function(val){
+                res.ensureIndex("group_id", function(val){
                     console.log(val);
                 });
 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("device_id", function(val){
+                res.ensureIndex("device_id", function(val){
                     console.log(val);
                 });                 
     
@@ -221,23 +221,23 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
 
                 // command indexes
-                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                res.ensureIndex("project_id", function(val){
                     console.log(val);
                 }); 
                 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("group_id", function(val){
+                res.ensureIndex("group_id", function(val){
                     console.log(val);
                 });
 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("device_id", function(val){
+                res.ensureIndex("device_id", function(val){
                     console.log(val);
                 });       
                 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("created_at", function(val){
+                res.ensureIndex("created_at", function(val){
                     console.log(val);
                 });
 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("confirmed_at", function(val){
+                res.ensureIndex("confirmed_at", function(val){
                     console.log(val);
                 });                   
     
@@ -255,27 +255,27 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
 
                 // location indexes
-                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                res.ensureIndex("project_id", function(val){
                     console.log(val);
                 }); 
                 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("group_id", function(val){
+                res.ensureIndex("group_id", function(val){
                     console.log(val);
                 });
 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("device_id", function(val){
+                res.ensureIndex("device_id", function(val){
                     console.log(val);
                 });       
                 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("created_at", function(val){
+                res.ensureIndex("created_at", function(val){
                     console.log(val);
                 });
 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("recorded_time", function(val){
+                res.ensureIndex("recorded_time", function(val){
                     console.log(val);
                 });    
                 
-                mongoDb.collection(rawDataCollectionName).ensureIndex({"latitude" : 1, "longitude" : 1}, function(val){
+                res.ensureIndex({"latitude" : 1, "longitude" : 1}, function(val){
                     console.log(val);
                 });                
     
@@ -293,23 +293,23 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
 
                 // device indexes
-                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                res.ensureIndex("project_id", function(val){
                     console.log(val);
                 }); 
                 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("group_id", function(val){
+                res.ensureIndex("group_id", function(val){
                     console.log(val);
                 });  
                 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("created_at", function(val){
+                res.ensureIndex("created_at", function(val){
                     console.log(val);
                 });                
     
-                mongoDb.collection(rawDataCollectionName).ensureIndex("last_contact", function(val){
+                res.ensureIndex("last_contact", function(val){
                     console.log(val);
                 });   
 
-                mongoDb.collection(rawDataCollectionName).ensureIndex("mandatory_schema_id", function(val){
+                res.ensureIndex("mandatory_schema_id", function(val){
                     console.log(val);
                 });                
 
@@ -327,7 +327,7 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
 
                 // device group indexes
-                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                res.ensureIndex("project_id", function(val){
                     console.log(val);
                 });                 
     
@@ -345,7 +345,7 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 }
 
                 // device schema indexes
-                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                res.ensureIndex("project_id", function(val){
                     console.log(val);
                 });                  
     
