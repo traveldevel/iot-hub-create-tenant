@@ -129,7 +129,28 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 if (err) {
                     console.log(err);
                 }
-    
+
+                // raw data indexes
+                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                    console.log(val);
+                });
+                
+                mongoDb.collection(rawDataCollectionName).ensureIndex("group_id", function(val){
+                    console.log(val);
+                });
+
+                mongoDb.collection(rawDataCollectionName).ensureIndex("device_id", function(val){
+                    console.log(val);
+                });               
+
+                mongoDb.collection(rawDataCollectionName).ensureIndex("recorded_time", function(val){
+                    console.log(val);
+                });      
+
+                mongoDb.collection(rawDataCollectionName).ensureIndex("created_at", function(val){
+                    console.log(val);
+                });               
+
                 console.log("Collection '" + rawDataCollectionName + "' created !");
             });
         }
@@ -143,6 +164,23 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                     console.log(err);
                 }
     
+                // event indexes
+                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                    console.log(val);
+                });
+                
+                mongoDb.collection(rawDataCollectionName).ensureIndex("group_id", function(val){
+                    console.log(val);
+                });
+
+                mongoDb.collection(rawDataCollectionName).ensureIndex("device_id", function(val){
+                    console.log(val);
+                });  
+
+                mongoDb.collection(rawDataCollectionName).ensureIndex("user_id", function(val){
+                    console.log(val);
+                });                  
+
                 console.log("Collection '" + eventCollectionName + "' created !");
             });
         }
@@ -155,6 +193,19 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 if (err) {
                     console.log(err);
                 }
+
+                // event rule indexes
+                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                    console.log(val);
+                }); 
+                
+                mongoDb.collection(rawDataCollectionName).ensureIndex("group_id", function(val){
+                    console.log(val);
+                });
+
+                mongoDb.collection(rawDataCollectionName).ensureIndex("device_id", function(val){
+                    console.log(val);
+                });                 
     
                 console.log("Collection '" + eventRuleCollectionName + "' created !");
             });
@@ -168,6 +219,27 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 if (err) {
                     console.log(err);
                 }
+
+                // command indexes
+                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                    console.log(val);
+                }); 
+                
+                mongoDb.collection(rawDataCollectionName).ensureIndex("group_id", function(val){
+                    console.log(val);
+                });
+
+                mongoDb.collection(rawDataCollectionName).ensureIndex("device_id", function(val){
+                    console.log(val);
+                });       
+                
+                mongoDb.collection(rawDataCollectionName).ensureIndex("created_at", function(val){
+                    console.log(val);
+                });
+
+                mongoDb.collection(rawDataCollectionName).ensureIndex("confirmed_at", function(val){
+                    console.log(val);
+                });                   
     
                 console.log("Collection '" + commandCollectionName + "' created !");
             });
@@ -181,6 +253,31 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 if (err) {
                     console.log(err);
                 }
+
+                // location indexes
+                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                    console.log(val);
+                }); 
+                
+                mongoDb.collection(rawDataCollectionName).ensureIndex("group_id", function(val){
+                    console.log(val);
+                });
+
+                mongoDb.collection(rawDataCollectionName).ensureIndex("device_id", function(val){
+                    console.log(val);
+                });       
+                
+                mongoDb.collection(rawDataCollectionName).ensureIndex("created_at", function(val){
+                    console.log(val);
+                });
+
+                mongoDb.collection(rawDataCollectionName).ensureIndex("recorded_time", function(val){
+                    console.log(val);
+                });    
+                
+                mongoDb.collection(rawDataCollectionName).ensureIndex({"latitude" : 1, "longitude" : 1}, function(val){
+                    console.log(val);
+                });                
     
                 console.log("Collection '" + locationCollectionName + "' created !");
             });
@@ -194,7 +291,28 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 if (err) {
                     console.log(err);
                 }
+
+                // device indexes
+                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                    console.log(val);
+                }); 
+                
+                mongoDb.collection(rawDataCollectionName).ensureIndex("group_id", function(val){
+                    console.log(val);
+                });  
+                
+                mongoDb.collection(rawDataCollectionName).ensureIndex("created_at", function(val){
+                    console.log(val);
+                });                
     
+                mongoDb.collection(rawDataCollectionName).ensureIndex("last_contact", function(val){
+                    console.log(val);
+                });   
+
+                mongoDb.collection(rawDataCollectionName).ensureIndex("mandatory_schema_id", function(val){
+                    console.log(val);
+                });                
+
                 console.log("Collection '" + deviceCollectionName + "' created !");
             });
         }
@@ -207,6 +325,11 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 if (err) {
                     console.log(err);
                 }
+
+                // device group indexes
+                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                    console.log(val);
+                });                 
     
                 console.log("Collection '" + deviceGroupCollectionName + "' created !");
             });
@@ -220,6 +343,11 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 if (err) {
                     console.log(err);
                 }
+
+                // device schema indexes
+                mongoDb.collection(rawDataCollectionName).ensureIndex("project_id", function(val){
+                    console.log(val);
+                });                  
     
                 console.log("Collection '" + deviceSchemaCollectionName + "' created !");
             });
