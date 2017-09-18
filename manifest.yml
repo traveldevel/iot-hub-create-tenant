@@ -9,6 +9,3 @@ applications:
    buildpack: https://github.com/cloudfoundry/nodejs-buildpack
    services:
     - iot_hub_mongo_shared
-   env:
-    landscapeName: shared
-    tenantName: new

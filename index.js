@@ -1,5 +1,8 @@
 "use strict";
 
+// Load env vars from .env
+require('dotenv').config();
+
 // required modules
 const cfenv = require("cfenv");
 const uuidv4 = require('uuid/v4');
@@ -11,8 +14,8 @@ if(!appEnv.isLocal){
     console.log("appEnv.isLocal=", appEnv.isLocal);
 }
 
-const landscapeName = process.env.landscapeName;
-const tenantName = process.env.tenantName;
+const landscapeName = process.env.LANDSCAPE_NAME;
+const tenantName = process.env.TENANT_NAME;
 
 console.log("LANDSCAPE_NAME : ", landscapeName);
 console.log("TENANT_NAME : ", tenantName);
@@ -23,6 +26,7 @@ const services = appEnv.getServices();
 // tenant collection names
 const rawDataCollectionName = tenantName + "_raw_data";
 const eventCollectionName = tenantName + "_event";
+const eventRuleCollectionName = tenantName + "_event_rule";
 const commandCollectionName = tenantName + "_command";
 const projectCollectionName = tenantName + "_project";
 const deviceGroupCollectionName = tenantName + "_device_group";
@@ -87,7 +91,9 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                     if(docs.length === 0){
                         var tenant = {
                             "tenant_name" : tenantName,
-                            "tenant_secret" : tenantSecret
+                            "tenant_secret" : tenantSecret,
+                            "tenant_hdfs_coldstore" : false,
+                            "tenant_rule_processing" : false
                         };
             
                         tenantsCol.insertOne(tenant, function(){});
@@ -105,7 +111,9 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 if(docs.length === 0){
                     var tenant = {
                         "tenant_name" : tenantName,
-                        "tenant_secret" : uuidv4()
+                        "tenant_secret" : tenantSecret,
+                        "tenant_hdfs_coldstore" : false,
+                        "tenant_rule_processing" : false                        
                     };
         
                     tenantsCol.insertOne(tenant, function(){});
@@ -138,6 +146,19 @@ mongoClient.connect(mongoUrl, function(err, mongoDb) {
                 console.log("Collection '" + eventCollectionName + "' created !");
             });
         }
+
+        // event rules collection
+        if(cols.indexOf(eventRuleCollectionName) < 0){
+    
+            mongoDb.createCollection(eventRuleCollectionName, function(err, res) {
+                    
+                if (err) {
+                    console.log(err);
+                }
+    
+                console.log("Collection '" + eventRuleCollectionName + "' created !");
+            });
+        }        
     
         // command collection
         if(cols.indexOf(commandCollectionName) < 0){
