@@ -8,4 +8,7 @@ applications:
    timeout: 10
    buildpack: https://github.com/cloudfoundry/nodejs-buildpack
    services:
-    - iot_hub_mongo_shared
+    - iot_hub_mongo_shared_new_metadata
+    - iot_hub_mongo_shared_new_rawdata
+    - iot_hub_mongo_shared_new_event
+    - iot_hub_mongo_shared_new_location
