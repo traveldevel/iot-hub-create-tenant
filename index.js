@@ -5,6 +5,7 @@ require('dotenv').config();
 
 // required modules
 const cfenv = require("cfenv");
+const uuidv4 = require('uuid/v4');
 
 // configs from env vars
 const appEnv = cfenv.getAppEnv();
@@ -193,9 +194,11 @@ mongoClient.connect(mongoUrlMetadata, function(err, mongoDb) {
     
                 var usersCol = mongoDb.collection(userCollectionName);
     
+                var userSecret = uuidv4();
+
                 var adminUser = {
                     "name" : "admin",
-                    "password": tenantSecret,
+                    "password": userSecret,
                     "roles":[
                         "ADMIN",
                         "DEVELOPER",
