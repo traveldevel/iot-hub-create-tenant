@@ -83,6 +83,10 @@ if(mongoUrlEvent.length === 0){
 }
 
 var mongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
+
+const firstProjectId = new ObjectID();
+const firstGroupId = new ObjectID();
 
 // metatata create
 mongoClient.connect(mongoUrlMetadata, function(err, mongoDb) {
@@ -149,6 +153,26 @@ mongoClient.connect(mongoUrlMetadata, function(err, mongoDb) {
                 });                
 
                 console.log("Collection '" + deviceCollectionName + "' created !");
+
+                //load data for device
+                var loadDevices = require('./dataload/device').list;
+                for(var i = 0; i < loadDevices.length; i++){
+                    loadDevices[i]._id = new ObjectID();
+                    loadDevices[i].group_id = firstGroupId;
+                    loadDevices[i].project_id = firstProjectId;
+                    loadDevices[i].created_at = new Date();
+                    loadDevices[i].auth_token = uuidv4();
+                }
+
+                res.insertMany(loadDevices, {w:1}, function(err, result) {
+                    
+                    if(err){
+                        console.log("Error insert initial device script : ", err);
+                    }
+
+                    console.log("Inserted devices from dataload/device.js : ", loadDevices.length);
+                });
+
             });
         }
 
@@ -167,6 +191,22 @@ mongoClient.connect(mongoUrlMetadata, function(err, mongoDb) {
                 });                 
     
                 console.log("Collection '" + deviceGroupCollectionName + "' created !");
+
+                //load data for groups
+                var loadGroups = require('./dataload/group').list;
+                for(var i = 0; i < loadGroups.length; i++){
+                    loadGroups[i]._id = firstGroupId;
+                    loadGroups[i].project_id = firstProjectId;
+                }
+
+                res.insertMany(loadGroups, {w:1}, function(err, result) {
+                    
+                    if(err){
+                        console.log("Error insert initial group script : ", err);
+                    }
+
+                    console.log("Inserted groups from dataload/group.js : ", loadGroups.length);
+                });                
             });
         }
 
@@ -198,6 +238,21 @@ mongoClient.connect(mongoUrlMetadata, function(err, mongoDb) {
                 }
     
                 console.log("Collection '" + projectCollectionName + "' created !");
+
+                //load data for projects
+                var loadProjects = require('./dataload/project').list;
+                for(var i = 0; i < loadProjects.length; i++){
+                    loadProjects[i]._id = firstProjectId;
+                }
+
+                res.insertMany(loadProjects, {w:1}, function(err, result) {
+                    
+                    if(err){
+                        console.log("Error insert initial project script : ", err);
+                    }
+
+                    console.log("Inserted projects from dataload/project.js : ", loadProjects.length);
+                });                
             });
         }
 
