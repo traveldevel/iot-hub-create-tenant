@@ -120,9 +120,29 @@ mongoClient.connect(mongoUrlMetadata, function(err, mongoDb) {
                     console.log(val);
                 });                
     
-                res.ensureIndex("last_contact", function(val){
+                res.ensureIndex("last_contact_ping", function(val){
                     console.log(val);
                 });   
+
+                res.ensureIndex("last_contact_location", function(val){
+                    console.log(val);
+                });   
+
+                res.ensureIndex("last_contact_rawdata", function(val){
+                    console.log(val);
+                });   
+                
+                res.ensureIndex("last_event_triggered", function(val){
+                    console.log(val);
+                });   
+                
+                res.ensureIndex("last_command_sent", function(val){
+                    console.log(val);
+                });  
+                
+                res.ensureIndex("last_command_confirmed", function(val){
+                    console.log(val);
+                });                                
 
                 res.ensureIndex("mandatory_schema_id", function(val){
                     console.log(val);
@@ -355,6 +375,18 @@ mongoClient.connect(mongoUrlEvent, function(err, mongoDb) {
                 res.ensureIndex("user_id", function(val){
                     console.log(val);
                 });                  
+
+                res.ensureIndex("rule_id", function(val){
+                    console.log(val);
+                });    
+
+                res.ensureIndex("rawdata_id", function(val){
+                    console.log(val);
+                });    
+                
+                res.ensureIndex("triggered_at", function(val){
+                    console.log(val);
+                });                    
 
                 console.log("Collection '" + eventCollectionName + "' created !");
             });
