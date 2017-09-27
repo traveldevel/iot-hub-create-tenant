@@ -13,5 +13,7 @@ exports = module.exports.list = [{
     "last_command_sent" : null,
     "last_command_confirmed" : null,
     "mandatory_schema_id" : null,
-    "validate_schema" : false    
+    "validate_schema" : false,   
+    "trigger_events" : false,
+    "archive_to_coldstore" : false   
 }];
