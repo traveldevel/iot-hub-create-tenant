@@ -273,6 +273,8 @@ mongoClient.connect(mongoUrlMetadata, function(err, mongoDb) {
 
                 var adminUser = {
                     "name" : "admin",
+                    "firstname" : "system",
+                    "lastname" : "administrator",
                     "password": userSecret,
                     "roles":[
                         "ADMIN",
