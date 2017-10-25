@@ -34,7 +34,7 @@ const deviceCollectionName = "device";
 const deviceSchemaCollectionName = "device_schema";
 const locationCollectionName = "location";
 const userCollectionName = "user";
-const fileCollectionName = "user";
+const fileCollectionName = "file";
 
 // get mongo url from service function
 var getMongoUrlForService = function(mongoServiceName) {
