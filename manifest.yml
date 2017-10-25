@@ -12,3 +12,4 @@ applications:
     - iot_hub_mongo_shared_new_rawdata
     - iot_hub_mongo_shared_new_event
     - iot_hub_mongo_shared_new_location
+    - iot_hub_mongo_shared_new_files
