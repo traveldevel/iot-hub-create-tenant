@@ -34,6 +34,7 @@ const deviceCollectionName = "device";
 const deviceSchemaCollectionName = "device_schema";
 const locationCollectionName = "location";
 const userCollectionName = "user";
+const fileCollectionName = "user";
 
 // get mongo url from service function
 var getMongoUrlForService = function(mongoServiceName) {
@@ -61,6 +62,7 @@ const mongoUrlMetadata = getMongoUrlForService(mongoServiceBaseName + "_metadata
 const mongoUrlRawData = getMongoUrlForService(mongoServiceBaseName + "_rawdata");
 const mongoUrlLocation = getMongoUrlForService(mongoServiceBaseName + "_location");
 const mongoUrlEvent = getMongoUrlForService(mongoServiceBaseName + "_event");
+const mongoUrlFiles = getMongoUrlForService(mongoServiceBaseName + "_files");
 
 if(mongoUrlMetadata.length === 0){
     console.log('No mongo metadata service Binded. Exiting...');
@@ -79,6 +81,11 @@ if(mongoUrlLocation.length === 0){
 
 if(mongoUrlEvent.length === 0){
     console.log('No mongo events service Binded. Exiting...');
+    return;
+}
+
+if(mongoUrlFiles.length === 0){
+    console.log('No mongo files service Binded. Exiting...');
     return;
 }
 
@@ -393,6 +400,52 @@ mongoClient.connect(mongoUrlLocation, function(err, mongoDb) {
     });
 });
 
+// files create
+mongoClient.connect(mongoUrlFiles, function(err, mongoDb) {
+
+    if(err){
+        console.log("Connect error on files: ", err);
+        process.exit(1);
+        return;
+    }
+
+    mongoDb.collections().then(function(cols){
+        
+        var cols = cols.map(col => col.s.name);
+        console.log("Collections at start in files :", cols);
+        
+        // location collection
+        if(cols.indexOf(fileCollectionName) < 0){
+            
+            mongoDb.createCollection(fileCollectionName, function(err, res) {
+                
+                if (err) {
+                    console.log(err);
+                }
+
+                // location indexes
+                res.ensureIndex("project_id", function(val){
+                    console.log(val);
+                }); 
+                
+                res.ensureIndex("group_id", function(val){
+                    console.log(val);
+                });
+
+                res.ensureIndex("device_id", function(val){
+                    console.log(val);
+                });       
+                
+                res.ensureIndex("created_at", function(val){
+                    console.log(val);
+                });           
+    
+                console.log("Collection '" + fileCollectionName + "' created !");
+            });
+        }
+    });
+});
+
 // event create
 mongoClient.connect(mongoUrlEvent, function(err, mongoDb) {
 
@@ -565,4 +618,17 @@ process.on('exit', function() {
             process.exit(0);
         });
     });    
+    
+    // check collections created in files
+    mongoClient.connect(mongoUrlFiles, function(err, mongoDbCheck) {
+        
+        mongoDbCheck.collections().then(function(res){
+
+            var names = res.map(col => col.s.name);
+            console.log("Collections at end in files : ", names);
+            mongoDbCheck.close();
+
+            process.exit(0);
+        });
+    });   
 });
