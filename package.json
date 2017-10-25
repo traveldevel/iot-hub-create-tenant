@@ -4,7 +4,7 @@
   "description": "tenant create script",
   "main": "index.js",
   "engines": {
-    "node": "8.5.0"
+    "node": "8.7.0"
   },
   "scripts": {
     "start": "node index.js",
